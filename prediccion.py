@@ -16,7 +16,7 @@ def prediccion_arima(n_periods):
     # return  db_collection.to_dict('dict')
     # df = pd.DataFrame(list(db_collection.find()))
 
-    df = pd.DataFrame(list(db_collection.find().limit(n_periods)))
+    df = pd.DataFrame(list(db_collection.find().limit(1000)))
     # del df['_id']
     # return df.to_string()
     # print("Error al conectar con la BD")
@@ -58,7 +58,7 @@ def prediccion_arima(n_periods):
 
 
 def prediccion_weatherstack(n_periods):
-    API_KEY = os.getenv("API_KEY")
+    API_KEY = os.environ.get("API_KEY")
     
     params = {
       'key': API_KEY,
