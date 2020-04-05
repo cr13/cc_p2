@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  flask_api:
+    container_name: 'flask_api_v1'
+    build: .
+    command: python3 -u app_v1.py
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/app_v1
+    links:
+      - mongodb
+  flask_api_v2:
+    container_name: 'flask_api_v2'
+    build: 
+      context: .
+      dockerfile: Dockerfile_v2
+    command: python3 -u app_v2.py
+    ports:
+      - "3010:3010"
+    environment:
+      - API_KEY=${API_KEY}
+    volumes:
+      - .:/app_v2
+  mongodb:
+    image: mongo:latest
+    container_name: prediccion_mongodb
+    ports:
+     - 27017:27017
+  #  volumes:
+  #   - mongodb-data:/data/db
